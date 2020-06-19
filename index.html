@@ -152,6 +152,145 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-验证二叉搜索树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/19/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">验证二叉搜索树</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/19/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="archive-article-date">
+  	<time datetime="2020-06-19T13:57:30.016Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Leetcode-98-验证二叉搜索树"><a href="#Leetcode-98-验证二叉搜索树" class="headerlink" title="Leetcode-98 验证二叉搜索树 "></a>Leetcode-98 验证二叉搜索树 </h2><h3 id="解题思想：中序遍历，记录前驱根节点值"><a href="#解题思想：中序遍历，记录前驱根节点值" class="headerlink" title="解题思想：中序遍历，记录前驱根节点值"></a>解题思想：中序遍历，记录前驱根节点值</h3><h3 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h3><p>给定一个二叉树，判断其是否是一个有效的二叉搜索树。</p>
+<p>假设一个二叉搜索树具有如下特征：</p>
+<p>节点的左子树只包含小于当前节点的数。<br>节点的右子树只包含大于当前节点的数。<br>所有左子树和右子树自身必须也是二叉搜索树。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">    5</span><br><span class="line">   / \</span><br><span class="line">  1   4</span><br><span class="line">     / \</span><br><span class="line">    3   6</span><br><span class="line">输出：<span class="literal">false</span>  输入为: [5,1,4,null,null,3,6]。根节点的值为 5 ，但是其右子节点值为 4 。</span><br></pre></td></tr></table></figure>
+<h5 id="主要思路："><a href="#主要思路：" class="headerlink" title="主要思路："></a>主要思路：</h5><p>二叉搜索树性质：<br>①中序遍历，升序排列。<br>②左子树所有节点值小于根节点，右子树所有节点值大于根节点值。<br>③左右子树也为二叉搜索树。</p>
+<h5 id="此处使用性质①中序遍历，先比较当前根节点值是否小于等于前驱节点pre的值，如果是直接返回false，不是则替换当前节点值为根节点值。"><a href="#此处使用性质①中序遍历，先比较当前根节点值是否小于等于前驱节点pre的值，如果是直接返回false，不是则替换当前节点值为根节点值。" class="headerlink" title="此处使用性质①中序遍历，先比较当前根节点值是否小于等于前驱节点pre的值，如果是直接返回false，不是则替换当前节点值为根节点值。"></a>此处使用性质①中序遍历，先比较当前根节点值是否小于等于前驱节点pre的值，如果是直接返回false，不是则替换当前节点值为根节点值。</h5><h5 id="C-实现"><a href="#C-实现" class="headerlink" title="C++实现"></a>C++实现</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition <span class="keyword">for</span> a binary tree node.</span><br><span class="line"> * struct TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode *left;</span><br><span class="line"> *     TreeNode *right;</span><br><span class="line"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    </span><br><span class="line">    bool isValidBST(TreeNode* root) &#123;</span><br><span class="line">        long long pre = LONG_MIN;</span><br><span class="line">        <span class="built_in">return</span> dfs(root,pre);</span><br><span class="line">    &#125;</span><br><span class="line">    //pre传址，保证一个pre</span><br><span class="line">    bool dfs(TreeNode* root, long long &amp;pre)</span><br><span class="line">    &#123;</span><br><span class="line">        //中序遍历记录之前根节点的值</span><br><span class="line">        <span class="keyword">if</span>(root)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">if</span>(!dfs(root-&gt;left,pre)) <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(root-&gt;val &lt;= pre) <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">        pre = root-&gt;val;</span><br><span class="line">        <span class="keyword">if</span>(!dfs(root-&gt;right,pre)) <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+
+
+		
+		
+		  <div hidden="hidden"></div>
+		
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/19/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-平衡二叉树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/18/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/">平衡二叉树</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/18/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" class="archive-article-date">
+  	<time datetime="2020-06-18T05:31:03.163Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+
+		
+		
+		  <div hidden="hidden"></div>
+		
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/18/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-二叉搜索树公祖祖先节点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -669,144 +808,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/06/15/SOCKET-%E5%BB%BA%E7%AB%8B%E7%AE%80%E6%98%93TCP-IP%E8%BF%9E%E6%8E%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-原子的数量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/14/%E5%8E%9F%E5%AD%90%E7%9A%84%E6%95%B0%E9%87%8F/">原子的数量</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/14/%E5%8E%9F%E5%AD%90%E7%9A%84%E6%95%B0%E9%87%8F/" class="archive-article-date">
-  	<time datetime="2020-06-14T06:56:22.644Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Leetcode-726-原子的数量"><a href="#Leetcode-726-原子的数量" class="headerlink" title="Leetcode-726 原子的数量"></a>Leetcode-726 原子的数量</h2><h3 id="解题思想：-递归、哈希表"><a href="#解题思想：-递归、哈希表" class="headerlink" title="解题思想： 递归、哈希表"></a>解题思想： 递归、哈希表</h3><h3 id="题目描述：-给定一个化学式formula（作为字符串），返回每种原子的数量。"><a href="#题目描述：-给定一个化学式formula（作为字符串），返回每种原子的数量。" class="headerlink" title="题目描述： 给定一个化学式formula（作为字符串），返回每种原子的数量。"></a>题目描述： 给定一个化学式formula（作为字符串），返回每种原子的数量。</h3>
-        
-      
-
-
-		
-		
-		  <div hidden="hidden"></div>
-		
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/14/%E5%8E%9F%E5%AD%90%E7%9A%84%E6%95%B0%E9%87%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-移除多余括号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/13/%E7%A7%BB%E9%99%A4%E5%A4%9A%E4%BD%99%E6%8B%AC%E5%8F%B7/">移除多余括号</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/13/%E7%A7%BB%E9%99%A4%E5%A4%9A%E4%BD%99%E6%8B%AC%E5%8F%B7/" class="archive-article-date">
-  	<time datetime="2020-06-13T05:55:19.101Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Leetcode-1249-移除多余括号"><a href="#Leetcode-1249-移除多余括号" class="headerlink" title="Leetcode-1249 移除多余括号 "></a>Leetcode-1249 移除多余括号 </h2><h3 id="解题思想：括号入栈"><a href="#解题思想：括号入栈" class="headerlink" title="解题思想：括号入栈"></a>解题思想：括号入栈</h3><h3 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h3><p>给你一个由 ‘(‘、’)’ 和小写字母组成的字符串 s。</p>
-<p>你需要从字符串中删除最少数目的 ‘(‘ 或者 ‘)’ （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。</p>
-<p>请返回任意一个合法字符串</p>
-        
-      
-
-
-		
-		
-		  <div hidden="hidden"></div>
-		
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/13/%E7%A7%BB%E9%99%A4%E5%A4%9A%E4%BD%99%E6%8B%AC%E5%8F%B7/">展开全文 >></a>
         </p>
       
 
