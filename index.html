@@ -152,6 +152,77 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-监控二叉树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/06/20/%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91/">监控二叉树</a>
+    </h1>
+  
+
+        
+        <a href="/2020/06/20/%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91/" class="archive-article-date">
+  	<time datetime="2020-06-20T08:10:21.515Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Leetcode-968-监控二叉树"><a href="#Leetcode-968-监控二叉树" class="headerlink" title="Leetcode-968 监控二叉树"></a>Leetcode-968 监控二叉树</h2><h3 id="解题思想-设置每个节点标志位，后续遍历。"><a href="#解题思想-设置每个节点标志位，后续遍历。" class="headerlink" title="解题思想: 设置每个节点标志位，后续遍历。"></a>解题思想: 设置每个节点标志位，后续遍历。</h3><h3 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h3><p>给定一个二叉树，我们在树的节点上安装摄像头。</p>
+<p>节点上的每个摄影头都可以监视其父对象、自身及其直接子对象。</p>
+<p>计算监控树的所有节点所需的最小摄像头数量。</p>
+<p>题图自己想象。</p>
+        
+      
+
+
+		
+		
+		  <div hidden="hidden"></div>
+		
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/06/20/%E7%9B%91%E6%8E%A7%E4%BA%8C%E5%8F%89%E6%A0%91/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-对称二叉树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -172,7 +243,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Leetcode-112-二叉树路径总和"><a href="#Leetcode-112-二叉树路径总和" class="headerlink" title="Leetcode-112 二叉树路径总和 "></a>Leetcode-112 二叉树路径总和 </h2><h3 id="解题思想：同时遍历根的左右节点"><a href="#解题思想：同时遍历根的左右节点" class="headerlink" title="解题思想：同时遍历根的左右节点"></a>解题思想：同时遍历根的左右节点</h3><h3 id="题目描述：给定一个二叉树，检查它是否是镜像对称的。"><a href="#题目描述：给定一个二叉树，检查它是否是镜像对称的。" class="headerlink" title="题目描述：给定一个二叉树，检查它是否是镜像对称的。"></a>题目描述：给定一个二叉树，检查它是否是镜像对称的。</h3><h5 id="C-实现："><a href="#C-实现：" class="headerlink" title="C++实现："></a>C++实现：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition <span class="keyword">for</span> a binary tree node.</span><br><span class="line"> * struct TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode *left;</span><br><span class="line"> *     TreeNode *right;</span><br><span class="line"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool check(TreeNode* p, TreeNode* q)</span><br><span class="line">    &#123;   <span class="keyword">if</span>(!p &amp;&amp; !q) <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(!p || !q) <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="built_in">return</span> (p-&gt;val == q-&gt;val) &amp;&amp; check(p-&gt;left,q-&gt;right) &amp;&amp; check(p-&gt;right,q-&gt;left);</span><br><span class="line">    &#125;</span><br><span class="line">    bool isSymmetric(TreeNode* root) &#123;</span><br><span class="line">        <span class="built_in">return</span> check(root,root);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h2 id="Leetcode-112-二叉树路径总和"><a href="#Leetcode-112-二叉树路径总和" class="headerlink" title="Leetcode-112 二叉树路径总和 "></a>Leetcode-112 二叉树路径总和 </h2><h3 id="解题思想：同时遍历根的左右节点"><a href="#解题思想：同时遍历根的左右节点" class="headerlink" title="解题思想：同时遍历根的左右节点"></a>解题思想：同时遍历根的左右节点</h3><h3 id="题目描述：给定一个二叉树，检查它是否是镜像对称的。"><a href="#题目描述：给定一个二叉树，检查它是否是镜像对称的。" class="headerlink" title="题目描述：给定一个二叉树，检查它是否是镜像对称的。"></a>题目描述：给定一个二叉树，检查它是否是镜像对称的。</h3>
+        
       
 
 
@@ -735,74 +807,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/06/17/%E5%88%86%E5%89%B2%E9%93%BE%E8%A1%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-删除链表的倒数第N个点节点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/17/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%82%B9%E8%8A%82%E7%82%B9/">删除链表的倒数第N个点节点</a>
-    </h1>
-  
-
-        
-        <a href="/2020/06/17/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%82%B9%E8%8A%82%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-06-17T06:26:53.360Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Leetcode-19-删除链表的倒数第N个节点"><a href="#Leetcode-19-删除链表的倒数第N个节点" class="headerlink" title="Leetcode-19 删除链表的倒数第N个节点"></a>Leetcode-19 删除链表的倒数第N个节点</h2><h3 id="解题思想：双指针、消除一个节点情况（dummy）"><a href="#解题思想：双指针、消除一个节点情况（dummy）" class="headerlink" title="解题思想：双指针、消除一个节点情况（dummy）"></a>解题思想：双指针、消除一个节点情况（dummy）</h3><h3 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h3><p>给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</p>
-        
-      
-
-
-		
-		
-		  <div hidden="hidden"></div>
-		
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/06/17/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%82%B9%E8%8A%82%E7%82%B9/">展开全文 >></a>
         </p>
       
 
