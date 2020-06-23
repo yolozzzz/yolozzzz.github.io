@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yolozzzz.github.io">
-  <title>Archives: 2020/6 | 一个半吊子程序猿</title>
+  <title>二叉树的右视图 | 一个半吊子程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="一个半吊子程序猿">
-<meta property="og:url" content="https://yolozzzz.github.io/archives/2020/06/page/2/index.html">
+  <meta name="description" content="Leetcode199 — 二叉树的右视图解题思想：引入一个level，下层左右节点level+1；当前数组size &#x3D;&#x3D; level，根节点值加入数组。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树的右视图">
+<meta property="og:url" content="https://yolozzzz.github.io/2020/06/23/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/index.html">
 <meta property="og:site_name" content="一个半吊子程序猿">
+<meta property="og:description" content="Leetcode199 — 二叉树的右视图解题思想：引入一个level，下层左右节点level+1；当前数组size &#x3D;&#x3D; level，根节点值加入数组。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-23T04:27:18.381Z">
+<meta property="article:modified_time" content="2020-06-23T04:48:55.033Z">
 <meta property="article:author" content="娄 离">
 <meta name="twitter:card" content="summary">
   
@@ -150,295 +154,185 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-二叉树的右视图" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二叉树的右视图
+    </h1>
+  
+
+        
+        <a href="/2020/06/23/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/" class="archive-article-date">
+  	<time datetime="2020-06-23T04:27:18.381Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-23</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Leetcode199-—-二叉树的右视图"><a href="#Leetcode199-—-二叉树的右视图" class="headerlink" title="Leetcode199 — 二叉树的右视图"></a>Leetcode199 — 二叉树的右视图</h2><h3 id="解题思想：引入一个level，下层左右节点level-1；当前数组size-level，根节点值加入数组。"><a href="#解题思想：引入一个level，下层左右节点level-1；当前数组size-level，根节点值加入数组。" class="headerlink" title="解题思想：引入一个level，下层左右节点level+1；当前数组size == level，根节点值加入数组。"></a>解题思想：引入一个level，下层左右节点level+1；当前数组size == level，根节点值加入数组。</h3><a id="more"></a>
+
+<h3 id="主要思想：当数组的size先进右边增大了，左边level-1-就不会与其相等。"><a href="#主要思想：当数组的size先进右边增大了，左边level-1-就不会与其相等。" class="headerlink" title="主要思想：当数组的size先进右边增大了，左边level+1 就不会与其相等。"></a>主要思想：当数组的size先进右边增大了，左边level+1 就不会与其相等。</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; res;</span><br><span class="line">    vector&lt;int&gt; rightSideView(TreeNode* root) &#123;</span><br><span class="line">        int level = 0;</span><br><span class="line">        dfs(root,level,res);</span><br><span class="line">        <span class="built_in">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    void dfs(TreeNode *root,int level,vector&lt;int&gt;&amp; res)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(root==NULL) <span class="built_in">return</span>;</span><br><span class="line">        <span class="keyword">if</span>(res.size() == level )</span><br><span class="line">        &#123;</span><br><span class="line">            res.push_back(root-&gt;val);</span><br><span class="line">        &#125;     </span><br><span class="line">        dfs(root-&gt;right,level+1,res); </span><br><span class="line">        dfs(root-&gt;left,level+1,res);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+
+
+		
+		
+		  <div>
+			<blockquote>
+				<strong>本文作者：</strong>
+				
+				  娄 离
+				
+				<br>
+				<strong>本文链接：</strong>
+				https://yolozzzz.github.io/2020/06/23/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/
+				<br>
+				<strong>版权声明：</strong>
+				本作品采用
+				<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>
+				进行许可。转载请注明出处！
+				
+				  <br>
+				  <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a>
+				
+			</blockquote>
+			
+			
+			<hr>
+				<center><strong>写C++一定要笑，不要愁眉苦脸的，hein~heihein~，这样，笑着写。</strong></center>
+			<hr>
+		  </div>
+		
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/17/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%85%AC%E7%A5%96%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-06-17T14:35:18.364Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/17/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%85%AC%E7%A5%96%E7%A5%96%E5%85%88%E8%8A%82%E7%82%B9/">二叉搜索树公祖祖先节点</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yolozzzz.github.io/2020/06/23/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8F%B3%E8%A7%86%E5%9B%BE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/17/%E6%9C%80%E4%BD%B3%E8%A7%82%E5%85%89%E6%99%AF%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-06-17T08:44:52.824Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/06/23/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">二叉树的镜像</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/17/%E6%9C%80%E4%BD%B3%E8%A7%82%E5%85%89%E6%99%AF%E7%82%B9/">最佳观光景点</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/17/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E8%8A%82%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-06-17T07:42:54.560Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/17/%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E8%8A%82%E7%82%B9/">链表中的一下一个更大节点</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/17/%E5%88%86%E5%89%B2%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-  	<time datetime="2020-06-17T06:51:27.801Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/17/%E5%88%86%E5%89%B2%E9%93%BE%E8%A1%A8/">分割链表</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/17/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%82%B9%E8%8A%82%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-06-17T06:26:53.360Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/17/%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%82%B9%E8%8A%82%E7%82%B9/">删除链表的倒数第N个点节点</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/17/K%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-  	<time datetime="2020-06-17T05:09:10.147Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/17/K%E4%B8%AA%E4%B8%80%E7%BB%84%E7%BF%BB%E8%BD%AC%E9%93%BE%E8%A1%A8/">K个一组翻转链表</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/15/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" class="archive-article-date">
-  	<time datetime="2020-06-15T04:53:52.057Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/15/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/">最长公共前缀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/15/SOCKET-%E5%BB%BA%E7%AB%8B%E7%AE%80%E6%98%93TCP-IP%E8%BF%9E%E6%8E%A5/" class="archive-article-date">
-  	<time datetime="2020-06-15T03:45:45.626Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/15/SOCKET-%E5%BB%BA%E7%AB%8B%E7%AE%80%E6%98%93TCP-IP%E8%BF%9E%E6%8E%A5/">SOCKET-建立简易TCP-IP连接</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/14/%E5%8E%9F%E5%AD%90%E7%9A%84%E6%95%B0%E9%87%8F/" class="archive-article-date">
-  	<time datetime="2020-06-14T06:56:22.644Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/14/%E5%8E%9F%E5%AD%90%E7%9A%84%E6%95%B0%E9%87%8F/">原子的数量</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/06/13/%E7%A7%BB%E9%99%A4%E5%A4%9A%E4%BD%99%E6%8B%AC%E5%8F%B7/" class="archive-article-date">
-  	<time datetime="2020-06-13T05:55:19.101Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/06/13/%E7%A7%BB%E9%99%A4%E5%A4%9A%E4%BD%99%E6%8B%AC%E5%8F%B7/">移除多余括号</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/06/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/06/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/06/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/06/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +356,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
