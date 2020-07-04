@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://yolozzzz.github.io">
   <title>SOCKET-多线程join、detach问题 | 一个半吊子程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SOCKET-SOCKET-多线程join、detach问题">
+  <meta name="description" content="SOCKET-SOCKET-多线程join、detach问题SOCKET-SOCKET-锁、自解锁SOCKET-SOCKET-原子操作、线程安全">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SOCKET-多线程join、detach问题">
 <meta property="og:url" content="https://yolozzzz.github.io/2020/07/02/SOCKET-%E5%A4%9A%E7%BA%BF%E7%A8%8Bjoin%E3%80%81detach%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="一个半吊子程序猿">
-<meta property="og:description" content="SOCKET-SOCKET-多线程join、detach问题">
+<meta property="og:description" content="SOCKET-SOCKET-多线程join、detach问题SOCKET-SOCKET-锁、自解锁SOCKET-SOCKET-原子操作、线程安全">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-02T15:11:51.644Z">
-<meta property="article:modified_time" content="2020-07-02T15:14:43.045Z">
+<meta property="article:modified_time" content="2020-07-04T03:32:31.392Z">
 <meta property="article:author" content="娄 离">
 <meta name="twitter:card" content="summary">
   
@@ -174,11 +174,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="SOCKET-SOCKET-多线程join、detach问题"><a href="#SOCKET-SOCKET-多线程join、detach问题" class="headerlink" title="SOCKET-SOCKET-多线程join、detach问题"></a>SOCKET-SOCKET-多线程join、detach问题</h2><a id="more"></a>
-<p><strong>在声明一个std::thread 对象之后，都可以使用detach和join函数来启动被调线程，区别在于二者是否阻塞主调线程</strong></p>
+        <p>SOCKET-SOCKET-多线程join、detach问题<br>SOCKET-SOCKET-锁、自解锁<br>SOCKET-SOCKET-原子操作、线程安全</p>
+<hr>
+<a id="more"></a>
+<h3 id="临界区域"><a href="#临界区域" class="headerlink" title="临界区域"></a>临界区域</h3><p><strong>在声明一个std::thread 对象之后，都可以使用detach和join函数来启动被调线程，区别在于二者是否阻塞主调线程</strong></p>
 <p><strong>(1)当使用Join()函数时，主调线程阻塞，等待被调线程终止，然后主调线程回收被调线程资源，并继续运行；</strong></p>
 <p><strong>(2)当使用detach()函数时，主调线程继续运行，被调线程驻留后台运行，主调线程无法再取得该被调线程的控制权，当主调线程结束时，由运行时库负责清理与被调线程相关的资源。</strong></p>
 <p>参考：<a href="https://www.jianshu.com/p/b5adb0ece8b9" target="_blank" rel="noopener">https://www.jianshu.com/p/b5adb0ece8b9</a></p>
+<h3 id="锁-互斥、共享"><a href="#锁-互斥、共享" class="headerlink" title="锁 - 互斥、共享"></a>锁 - 互斥、共享</h3><p><strong>共享锁 -&gt; shared_mutex</strong><br>多个线程可以共享这个锁的拥有权，用于数据读。</p>
+<p>如果一个线程已经获得了共享锁，则其他任何线程无法获取互斥锁，但是可以获取共享锁。<br><strong>互斥锁-&gt; mutex</strong><br>仅一个线程可以拥有这个锁，用于写。</p>
+<p>如果一个线程获取的互斥锁，则其他线程都无法获取该锁。</p>
+<h3 id="原子操作、线程安全"><a href="#原子操作、线程安全" class="headerlink" title="原子操作、线程安全"></a>原子操作、线程安全</h3><p><strong>原子操作 -&gt; atomic</strong></p>
+<p><strong>线程安全</strong><br>函数执行的时候不受其他线程的干扰，例如recv 和 send 是安全的，共享数据也不变，使用原子操作完成。</p>
 
       
 
