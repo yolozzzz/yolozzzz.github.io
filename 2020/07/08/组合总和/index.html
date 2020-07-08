@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yolozzzz.github.io">
-  <title>SOCKET-多线程join、detach问题 | 一个半吊子程序猿</title>
+  <title>组合总和 | 一个半吊子程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SOCKET-SOCKET-多线程join、detach问题SOCKET-SOCKET-锁、自解锁SOCKET-SOCKET-原子操作、线程安全">
+  <meta name="description" content="Leetcode-39组合总和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SOCKET-多线程join、detach问题">
-<meta property="og:url" content="https://yolozzzz.github.io/2020/07/02/SOCKET-%E5%A4%9A%E7%BA%BF%E7%A8%8Bjoin%E3%80%81detach%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="组合总和">
+<meta property="og:url" content="https://yolozzzz.github.io/2020/07/08/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/index.html">
 <meta property="og:site_name" content="一个半吊子程序猿">
-<meta property="og:description" content="SOCKET-SOCKET-多线程join、detach问题SOCKET-SOCKET-锁、自解锁SOCKET-SOCKET-原子操作、线程安全">
+<meta property="og:description" content="Leetcode-39组合总和">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-02T15:11:51.644Z">
-<meta property="article:modified_time" content="2020-07-04T03:32:31.392Z">
+<meta property="article:published_time" content="2020-07-08T09:25:47.588Z">
+<meta property="article:modified_time" content="2020-07-08T09:36:08.223Z">
 <meta property="article:author" content="娄 离">
 <meta name="twitter:card" content="summary">
   
@@ -154,39 +154,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-SOCKET-多线程join、detach问题" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-组合总和" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SOCKET-多线程join、detach问题
+      组合总和
     </h1>
   
 
         
-        <a href="/2020/07/02/SOCKET-%E5%A4%9A%E7%BA%BF%E7%A8%8Bjoin%E3%80%81detach%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2020-07-02T15:11:51.644Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-02</time>
+        <a href="/2020/07/08/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/" class="archive-article-date">
+  	<time datetime="2020-07-08T09:25:47.588Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>SOCKET-SOCKET-多线程join、detach问题<br>SOCKET-SOCKET-锁、自解锁<br>SOCKET-SOCKET-原子操作、线程安全</p>
-<hr>
-<a id="more"></a>
-<h3 id="临界区域"><a href="#临界区域" class="headerlink" title="临界区域"></a>临界区域</h3><p><strong>在声明一个std::thread 对象之后，都可以使用detach和join函数来启动被调线程，区别在于二者是否阻塞主调线程</strong></p>
-<p><strong>(1)当使用Join()函数时，主调线程阻塞，等待被调线程终止，然后主调线程回收被调线程资源，并继续运行；</strong></p>
-<p><strong>(2)当使用detach()函数时，主调线程继续运行，被调线程驻留后台运行，主调线程无法再取得该被调线程的控制权，当主调线程结束时，由运行时库负责清理与被调线程相关的资源。</strong></p>
-<p>参考：<a href="https://www.jianshu.com/p/b5adb0ece8b9" target="_blank" rel="noopener">https://www.jianshu.com/p/b5adb0ece8b9</a></p>
-<h3 id="锁-互斥、共享"><a href="#锁-互斥、共享" class="headerlink" title="锁 - 互斥、共享"></a>锁 - 互斥、共享</h3><p><strong>共享锁 -&gt; shared_mutex</strong><br>多个线程可以共享这个锁的拥有权，用于数据读。</p>
-<p>如果一个线程已经获得了共享锁，则其他任何线程无法获取互斥锁，但是可以获取共享锁。<br><strong>互斥锁-&gt; mutex</strong><br>仅一个线程可以拥有这个锁，用于写。</p>
-<p>如果一个线程获取的互斥锁，则其他线程都无法获取该锁。</p>
-<h3 id="原子操作、线程安全"><a href="#原子操作、线程安全" class="headerlink" title="原子操作、线程安全"></a>原子操作、线程安全</h3><p><strong>原子操作 -&gt; atomic</strong></p>
-<p><strong>线程安全</strong><br>函数执行的时候不受其他线程的干扰，例如recv 和 send 是安全的，共享数据也不变，使用原子操作完成。</p>
+        <h2 id="Leetcode-39组合总和"><a href="#Leetcode-39组合总和" class="headerlink" title="Leetcode-39组合总和"></a>Leetcode-39组合总和</h2><a id="more"></a>
 
+<h3 id="解题思想：DFS、回溯剪枝"><a href="#解题思想：DFS、回溯剪枝" class="headerlink" title="解题思想：DFS、回溯剪枝"></a>解题思想：DFS、回溯剪枝</h3><h3 id="主要思想：将target从输入数组元素第一个开始循环，一次减去每个元素，target减去元素大于0就添加到一维数组中，然后改变target再循环数组元素，当target为0，将target添加到二维数组res中，每个DFS后加一个pop清空数组。"><a href="#主要思想：将target从输入数组元素第一个开始循环，一次减去每个元素，target减去元素大于0就添加到一维数组中，然后改变target再循环数组元素，当target为0，将target添加到二维数组res中，每个DFS后加一个pop清空数组。" class="headerlink" title="主要思想：将target从输入数组元素第一个开始循环，一次减去每个元素，target减去元素大于0就添加到一维数组中，然后改变target再循环数组元素，当target为0，将target添加到二维数组res中，每个DFS后加一个pop清空数组。"></a>主要思想：将target从输入数组元素第一个开始循环，一次减去每个元素，target减去元素大于0就添加到一维数组中，然后改变target再循环数组元素，当target为0，将target添加到二维数组res中，每个DFS后加一个pop清空数组。</h3><h5 id="C-实现"><a href="#C-实现" class="headerlink" title="C++ 实现"></a>C++ 实现</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; path;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; combinationSum(vector&lt;int&gt;&amp; candidates, int target) &#123;</span><br><span class="line">        sort(candidates.begin(),candidates.end());</span><br><span class="line">        dfs(candidates,target,0);</span><br><span class="line">        <span class="built_in">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    void dfs(vector&lt;int&gt;&amp; candidates, int target,int start)&#123;</span><br><span class="line">        <span class="keyword">if</span>(target == 0)&#123;</span><br><span class="line">            res.push_back(path);</span><br><span class="line">            <span class="built_in">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(int i=start;i&lt;candidates.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(target &gt;= candidates[i])&#123;</span><br><span class="line">                path.push_back(candidates[i]);</span><br><span class="line">                dfs(candidates,target-candidates[i],i);</span><br><span class="line">                path.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
 
 
@@ -200,7 +190,7 @@
 				
 				<br>
 				<strong>本文链接：</strong>
-				https://yolozzzz.github.io/2020/07/02/SOCKET-%E5%A4%9A%E7%BA%BF%E7%A8%8Bjoin%E3%80%81detach%E9%97%AE%E9%A2%98/
+				https://yolozzzz.github.io/2020/07/08/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/
 				<br>
 				<strong>版权声明：</strong>
 				本作品采用
@@ -294,7 +284,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yolozzzz.github.io/2020/07/02/SOCKET-%E5%A4%9A%E7%BA%BF%E7%A8%8Bjoin%E3%80%81detach%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yolozzzz.github.io/2020/07/08/%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,18 +298,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/07/04/SOCKET-%E5%88%86%E7%A6%BB%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E4%B8%8E%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E4%B8%9A%E5%8A%A1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          SOCKET-分离客户端连接与消息处理业务
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/07/02/SOCKET-Linux-Windows%E4%B8%8B%E7%B2%98%E5%8C%85%E8%A7%A3%E5%86%B3%E5%90%8E%E7%89%88%E6%9C%AC%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SOCKET-Linux-Windows下粘包解决后版本记录</div>
+    <a href="/2020/07/04/SOCKET-%E5%88%86%E7%A6%BB%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E4%B8%8E%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E4%B8%9A%E5%8A%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SOCKET-分离客户端连接与消息处理业务</div>
       <i class="icon-circle-right"></i>
     </a>
   
