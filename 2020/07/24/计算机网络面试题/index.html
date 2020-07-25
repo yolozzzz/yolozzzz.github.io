@@ -16,7 +16,7 @@
 <meta property="og:description" content="计算机网络面试题">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-24T14:40:12.767Z">
-<meta property="article:modified_time" content="2020-07-25T13:31:46.694Z">
+<meta property="article:modified_time" content="2020-07-25T14:35:07.032Z">
 <meta property="article:author" content="娄 离">
 <meta name="twitter:card" content="summary">
   
@@ -202,8 +202,8 @@
 <p>解决办法：调整内核参数，web中默认keep alive，重用。</p>
 <h5 id="CLOSE-WAIT"><a href="#CLOSE-WAIT" class="headerlink" title="CLOSE WAIT"></a>CLOSE WAIT</h5><p>被动关闭端</p>
 <p>父进程打开了socket，然后通过fork出子进程来处理业务，父进程继续对网络请求进行监听，永远不会终止；当客户端发FIN过来的时候，处理业务的子进程处理此FIN消息，调用close()对本端进行关闭，然而这个close()调用只是把socket的引用计数器减1，因为父进程还在运行，socket并没关闭，这样就导致系统中又多了一个CLOSE_WAIT的socket，长此以往，就这样了。</p>
-<h6 id="LOSE-WAIT出现在什么时候呢？"><a href="#LOSE-WAIT出现在什么时候呢？" class="headerlink" title="LOSE_WAIT出现在什么时候呢？"></a>LOSE_WAIT出现在什么时候呢？</h6><p>在Sever端收到Client的FIN消息之后</p>
-<h6 id="状态CLOSE-WAIT在什么时候转换成下一个状态？"><a href="#状态CLOSE-WAIT在什么时候转换成下一个状态？" class="headerlink" title="状态CLOSE_WAIT在什么时候转换成下一个状态？"></a>状态CLOSE_WAIT在什么时候转换成下一个状态？</h6><p>在Server端向Client发送FIN消息之后</p>
+<h6 id="CLOSE-WAIT出现在什么时候呢"><a href="#CLOSE-WAIT出现在什么时候呢" class="headerlink" title="CLOSE_WAIT出现在什么时候呢"></a>CLOSE_WAIT出现在什么时候呢</h6><p>在Sever端收到Client的FIN消息之后</p>
+<h6 id="状态CLOSE-WAIT在什么时候转换成下一个状态"><a href="#状态CLOSE-WAIT在什么时候转换成下一个状态" class="headerlink" title="状态CLOSE_WAIT在什么时候转换成下一个状态"></a>状态CLOSE_WAIT在什么时候转换成下一个状态</h6><p>在Server端向Client发送FIN消息之后</p>
 <p>解决方法：<br>socket的keep alive 清除无效机制</p>
 <p>补充close socket</p>
 <h4 id="⑤TCP和UDP的区别"><a href="#⑤TCP和UDP的区别" class="headerlink" title="⑤TCP和UDP的区别"></a>⑤TCP和UDP的区别</h4><p>TCP是交付性，面向连接的，更加稳定</p>
@@ -233,6 +233,25 @@
 <p>快恢复</p>
 <p>1，当发送方连续收到三个重复确认时，就执行“乘法减小”算法，把慢开始门限ssthresh减半。为了预防网络发生拥塞。请注意，接下来不去执行慢开始算法</p>
 <p>2，由于发送方现在认为网络很可能没有发送拥塞，（如果网络发生了严重的拥塞，接收方就不会收到连续的3个确认了，因为发出的报文段会直接被丢掉），因此与慢开始不同之处是现在不执行慢开始算法（即cwnd不设置为1），而是把cwnd设置为慢开始门限ssthresh减半后的数值，然后开始执行拥塞避免算法（加法增大）</p>
+<h4 id="⑨TCP-快速打开的原理-TFO"><a href="#⑨TCP-快速打开的原理-TFO" class="headerlink" title="⑨TCP 快速打开的原理(TFO)"></a>⑨TCP 快速打开的原理(TFO)</h4><p>它通过握手开始时的SYN包中的TFO cookie来验证一个之前连接过的客户端。如果验证成功，它可以在三次握手最终的ACK包收到之前就开始发送数据，这样便跳过了一个绕路的行为，更在传输开始时就降低了延迟。这个加密的Cookie被存储在客户端，在一开始的连接时被设定好。然后每当客户端连接时，这个Cookie被重复返回。</p>
+<h4 id="⑩TCP中时间戳的作用"><a href="#⑩TCP中时间戳的作用" class="headerlink" title="⑩TCP中时间戳的作用"></a>⑩TCP中时间戳的作用</h4><p>计算往返时延RTT  RTT = ta2 - ta1</p>
+<p>防止序列号回绕问题</p>
+<p>序列号seq number占用了32位，可以表达的范围为0～2^32-1，用完了会回绕，通过内核时间解决。</p>
+<h4 id="如何理解tcp-keep-alive"><a href="#如何理解tcp-keep-alive" class="headerlink" title="如何理解tcp keep alive"></a>如何理解tcp keep alive</h4><p>例如请求</p>
+<p>一个网页中，可能引入了几十个js、css文件，上百张图片，如果每请求一个资源，就创建一个连接，然后关闭，代价实在太大了。</p>
+<p>调整参数，socket的keep alive 清除无效机制</p>
+<h4 id="HTTP-与-HTTPS-区别"><a href="#HTTP-与-HTTPS-区别" class="headerlink" title="HTTP 与 HTTPS 区别"></a>HTTP 与 HTTPS 区别</h4><p>http的中文叫做超文本传输协议,它负责完成客户端到服务端的一系列操作,是专门用来传输注入HTML的超媒体文档等web内容的协议,它是基于传输层的TCP协议的应用层协议。</p>
+<p>https:https是基于安全套接字的http协议,也可以理解为是http+ssl/tls(数字证书)的组合。</p>
+<p>HTTP 是不安全的，而 HTTPS 是安全的。</p>
+<p>HTTP 标准端口是 80 ，而 HTTPS 的标准端口是 443</p>
+<p>在 OSI 网络模型中，HTTPS的加密是在传输层完成的,因为SSL是位于传输层的,TLS的前身是SSL,所以同理。</p>
+<p>HTTP无需认证证书,而https需要认证证书。</p>
+<h4 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h4><p>应用<br>表示 数据格式转化，加密表示<br>会话 简历管理会话<br>传输 端到端的链接<br>网络 IP选址<br>数据链路 链路管理<br>物理层  </p>
+<h4 id="HTTP返回错误代码大全"><a href="#HTTP返回错误代码大全" class="headerlink" title="HTTP返回错误代码大全"></a>HTTP返回错误代码大全</h4><p>1XX 临时资讯，客户端不知道</p>
+<p>2XX 服务端接受并作出回应</p>
+<p>3XX 链接跳转有关</p>
+<p>4XX 客户端请求错误</p>
+<p>5XX 服务端错误</p>
 
       
 
@@ -354,6 +373,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/07/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%9D%A2%E8%AF%95%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          操作系统面试题
+        
+      </div>
+    </a>
   
   
     <a href="/2020/07/24/C++%E8%AF%AD%E6%B3%95%E9%9D%A2%E8%AF%95%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
