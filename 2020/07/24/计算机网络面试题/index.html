@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://yolozzzz.github.io">
-  <title>计算机网络 | 一个半吊子程序猿</title>
+  <title>计算机网络面试题 | 一个半吊子程序猿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="计算机网络面试题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="计算机网络">
-<meta property="og:url" content="https://yolozzzz.github.io/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:title" content="计算机网络面试题">
+<meta property="og:url" content="https://yolozzzz.github.io/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98/index.html">
 <meta property="og:site_name" content="一个半吊子程序猿">
 <meta property="og:description" content="计算机网络面试题">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-24T14:40:12.767Z">
-<meta property="article:modified_time" content="2020-07-25T07:31:28.259Z">
+<meta property="article:modified_time" content="2020-07-25T13:31:46.694Z">
 <meta property="article:author" content="娄 离">
 <meta name="twitter:card" content="summary">
   
@@ -154,19 +154,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-计算机网络" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-计算机网络面试题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      计算机网络
+      计算机网络面试题
     </h1>
   
 
         
-        <a href="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="archive-article-date">
+        <a href="/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98/" class="archive-article-date">
   	<time datetime="2020-07-24T14:40:12.767Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-24</time>
 </a>
         
@@ -206,7 +206,34 @@
 <h6 id="状态CLOSE-WAIT在什么时候转换成下一个状态？"><a href="#状态CLOSE-WAIT在什么时候转换成下一个状态？" class="headerlink" title="状态CLOSE_WAIT在什么时候转换成下一个状态？"></a>状态CLOSE_WAIT在什么时候转换成下一个状态？</h6><p>在Server端向Client发送FIN消息之后</p>
 <p>解决方法：<br>socket的keep alive 清除无效机制</p>
 <p>补充close socket</p>
-<h4 id="⑤TCP和UDP的区别"><a href="#⑤TCP和UDP的区别" class="headerlink" title="⑤TCP和UDP的区别"></a>⑤TCP和UDP的区别</h4>
+<h4 id="⑤TCP和UDP的区别"><a href="#⑤TCP和UDP的区别" class="headerlink" title="⑤TCP和UDP的区别"></a>⑤TCP和UDP的区别</h4><p>TCP是交付性，面向连接的，更加稳定</p>
+<p>UDP是无连接的，面向消息的数据传输协议，对于传统的TCP服务器来讲，有2个致命的缺点，一是数据包容易丢失，二是数据包无序。</p>
+<p>TCP具有比UDP更大的头。一个TCP数据包报头的大小是20字节，UDP数据报报头是8个字节。</p>
+<p>TCP有流量控制。在任何用户数据可以被发送之前，TCP需要三数据包来设置一个套接字连接。TCP处理的可靠性和拥塞控制。另一方面，UDP不能进行流量控制。</p>
+<p>TCP也保证了消息的有序性。该消息将以从服务器端发出的同样的顺序发送到客户端，尽管这些消息到网络的另一端时可能是无序的。TCP协议将会为你排好序。UDP不提供任何有序性或序列性的保证。</p>
+<h4 id="⑥SYN与Flood攻击"><a href="#⑥SYN与Flood攻击" class="headerlink" title="⑥SYN与Flood攻击"></a>⑥SYN与Flood攻击</h4><p>SYN攻击属于DOS攻击的一种，它利用TCP协议缺陷，通过发送大量的半连接请求，耗费CPU和内存资源。</p>
+<p>解决方式：<br>SYN cookie</p>
+<p>当服务器收到SYN报文段时<strong>服务器不会为此SYN创建半开连接</strong>，<strong>而是创建初始TCP序列号</strong>，该序列号是由一个复杂的<strong>散列函数</strong>将 <strong>源</strong>和<strong>目标</strong>的<strong>IP地址</strong>和SYN报文段中的<strong>端口号</strong>，以及只有该服务器知道的secret number，作为输入得到的。</p>
+<p>如果函数的结果加1与客户端的ACK中的确认字段的值相同，则服务器断定ACK段与之前的SYN段时相对应的，因此是有效的。然后服务器会创建一个完全打开的连接。</p>
+<p>另一方面，如果客户端没有返回ACK段，那么原始SYN没有对服务器造成任何伤害，因为服务器没有分配任何资源来响应原始的加SYN。</p>
+<p>tcp_max_syn_backlog 5 </p>
+<p>对于那些依然还未获得客户端确认的连接请求﹐需要保存在队列中最大数目。</p>
+<p>对于超过 128Mb 内存的系统﹐默认值是 1024，增大</p>
+<p>tcp_synack_retries 5 180s</p>
+<p>第二步中最大发送次数，减小</p>
+<h4 id="⑦TCP的超时重传时间是如何计算的"><a href="#⑦TCP的超时重传时间是如何计算的" class="headerlink" title="⑦TCP的超时重传时间是如何计算的"></a>⑦TCP的超时重传时间是如何计算的</h4><p>有套递推公式，根据网络状况来更新时间，RTO每次翻倍。</p>
+<h4 id="⑧能不能说说-TCP-的拥塞控制"><a href="#⑧能不能说说-TCP-的拥塞控制" class="headerlink" title="⑧能不能说说 TCP 的拥塞控制"></a>⑧能不能说说 TCP 的拥塞控制</h4><p>慢开始</p>
+<p>发送方开始发送数据时，如果立即把大量数据字节注入到网络，那么就有可能引起网络拥塞，因为现在并不清楚网络的负荷情况。所以：较好的方法是先探测一下：由小到大逐渐增大发送窗口。也就是说：逐渐增大拥塞窗口数值。通常在刚开始发送报文段时，先把拥塞窗口cwnd设置为一个最大报文段MSS的数值，而在每收到一个对新的报文段的确认后，把拥塞窗口增加一个MSS的数值。</p>
+<p>拥塞避免</p>
+<p>算法思路是让拥塞窗口cwnd缓慢地增大，即经过一个往返时间RTT就把发送方的拥塞窗口cwnd加1，而不是加倍。这样，拥塞窗口cwnd按线性规律缓慢增长，比慢开始算法的拥塞窗口增长速率慢的多。</p>
+<p>无论在慢开始阶段还是在拥塞避免阶段，只要发送方判断网络出现拥塞（其根据就是没有按时收到确认），就要把慢开始门限ssthresh设置为出现拥塞时的发送方窗口值的一半（但不能小于2）。然后把拥塞窗口cwnd重新置为1，执行慢开始算法。这样做的目的就是要迅速减少主机发送到网络中的分组数，使得发生拥塞的路由器有足够的时间把队列中积压的分组处理完毕。</p>
+<p>快重传</p>
+<p>算法要求接收方每收到一个失序的报文段后就立即发出重复确认（为的是使发送方及早知道有报文段没有到达对方）而不要等待自己发送数据时才进行稍带确认。</p>
+<p>三次重复确认，就立即重传。</p>
+<p>快恢复</p>
+<p>1，当发送方连续收到三个重复确认时，就执行“乘法减小”算法，把慢开始门限ssthresh减半。为了预防网络发生拥塞。请注意，接下来不去执行慢开始算法</p>
+<p>2，由于发送方现在认为网络很可能没有发送拥塞，（如果网络发生了严重的拥塞，接收方就不会收到连续的3个确认了，因为发出的报文段会直接被丢掉），因此与慢开始不同之处是现在不执行慢开始算法（即cwnd不设置为1），而是把cwnd设置为慢开始门限ssthresh减半后的数值，然后开始执行拥塞避免算法（加法增大）</p>
+
       
 
 
@@ -220,7 +247,7 @@
 				
 				<br>
 				<strong>本文链接：</strong>
-				https://yolozzzz.github.io/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/
+				https://yolozzzz.github.io/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98/
 				<br>
 				<strong>版权声明：</strong>
 				本作品采用
@@ -314,7 +341,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://yolozzzz.github.io/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yolozzzz.github.io/2020/07/24/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98/" alt="微信分享二维码">
     </div>
 </div>
 
